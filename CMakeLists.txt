@@ -14,7 +14,7 @@ add_library(
 
 add_executable(
         FormattedOutput
-        test/src/FormattedOutput.cc
+        test/FormattedOutput.cc
         lib/include/FormattedOutput.hh
 )
 target_link_libraries(

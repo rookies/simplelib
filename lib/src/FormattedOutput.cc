@@ -21,11 +21,11 @@ int FormattedOutput::printUnsignedInteger(uintmax_t n, unsigned char base, bool 
 int FormattedOutput::printSignedInteger(intmax_t n, unsigned char base, bool uppercase) {
     if (n < 0) {
         printChar('-');
-        int res = printUnsignedInteger(-n, base, uppercase);
+        int res = printUnsignedInteger(static_cast<uintmax_t>(-n), base, uppercase);
         if (res < 0) return res;
         return res + 1;
     } else {
-        return printUnsignedInteger(n, base, uppercase);
+        return printUnsignedInteger(static_cast<uintmax_t>(n), base, uppercase);
     };
 }
 
@@ -151,7 +151,7 @@ int FormattedOutput::printFormatted(const char *format, ...) {
             // simple character, print it
             printChar(c);
             count++;
-        }
+        };
     }
 
     va_end(arg);
