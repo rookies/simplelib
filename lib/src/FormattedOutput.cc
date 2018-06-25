@@ -48,7 +48,9 @@ int FormattedOutput::printFormatted(const char *format, ...) {
 
     uintmax_t val_ui;
     intmax_t val_si;
+    uintptr_t val_ptr;
     char *val_str;
+    signed int *val_cptr;
 
     // TODO: flags, width, precision, length
     while (char c = *format++) {
@@ -115,8 +117,23 @@ int FormattedOutput::printFormatted(const char *format, ...) {
                     count += res;
                     in_format = false;
                     break;
-                    // TODO: %p
-                    // TODO: %n
+                case 'p':
+                    // pointer address
+                    val_ptr = reinterpret_cast<uintptr_t>(va_arg(arg, void*));
+                    res = printString("0x");
+                    if (res < 0) return res;
+                    count += res;
+                    res = printUnsignedInteger(val_ptr, 16, false);
+                    if (res < 0) return res;
+                    count += res;
+                    in_format = false;
+                    break;
+                case 'n':
+                    // print nothing, get number of characters written so far
+                    val_cptr = va_arg(arg, signed int*);
+                    *val_cptr = count;
+                    in_format = false;
+                    break;
                 case '%':
                     // literal percent character
                     printChar('%');

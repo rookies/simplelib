@@ -50,7 +50,7 @@ public:
      * @param ... the data to print
      * @return number of printed characters or a negative number if an error occurs
      *
-     * @todo %f, %F, %e, %E, %g, %G, %a, %A, %p, %n
+     * @todo %f, %F, %e, %E, %g, %G, %a, %A
      * @todo flags, width, precision, length
      */
      int printFormatted(const char *format, ...);

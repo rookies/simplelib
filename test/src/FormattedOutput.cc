@@ -13,6 +13,7 @@ void TestFormattedOutput::printChar(char c) {
 int main() {
     TestFormattedOutput fo;
     int c;
+    signed int c_test;
 
     c = fo.printUnsignedInteger(123456789);
     std::cout << " -> " << c << std::endl;
@@ -26,6 +27,10 @@ int main() {
     std::cout << " -> " << c << std::endl;
     c = fo.printString("test123");
     std::cout << " -> " << c << std::endl;
-    c = fo.printFormatted("%% %c %d %u %x %X %o %s", 'a', -42, 100, 0xdeadbeef, 0xdeadbeef, 042, "test123");
-    std::cout << " -> " << c << std::endl;
+    c = fo.printFormatted("%d %i %u %o %x %X ... %c %s %p %n %%",
+            -42, -1337, 666, 042, 0xdeadbeef, 0xbadcab1e, 'a', "test", main, &c_test);
+    std::cout << " -> " << c_test << " -> " << c << std::endl;
+    c = printf("%d %i %u %o %x %X ... %c %s %p %n %%",
+           -42, -1337, 666, 042, 0xdeadbeef, 0xbadcab1e, 'a', "test", main, &c_test);
+    std::cout << " -> " << c_test << " -> " << c << std::endl;
 }
