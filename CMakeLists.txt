@@ -15,11 +15,13 @@ add_library(
 )
 
 add_executable(
-        FormattedOutput
+        testsuite
+        test/main.cc
         test/FormattedOutput.cc
         lib/include/FormattedOutput.hh
 )
 target_link_libraries(
-        FormattedOutput
+        testsuite
         simplelib
+        UnitTest++
 )
