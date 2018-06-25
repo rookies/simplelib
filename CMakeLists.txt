@@ -10,6 +10,8 @@ add_library(
         STATIC
         lib/src/FormattedOutput.cc
         lib/include/FormattedOutput.hh
+        lib/src/FormattedOutputBuffer.cc
+        lib/include/FormattedOutputBuffer.hh
 )
 
 add_executable(
