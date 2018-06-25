@@ -3,7 +3,7 @@
 #include <cstdarg>
 
 int FormattedOutput::printUnsignedInteger(uintmax_t n, unsigned char base, bool uppercase) {
-    // Check base (only up to 16 supported):
+    // check base (only up to 16 supported)
     if (base > 16) return -1;
 
     int count = 0;
@@ -19,12 +19,11 @@ int FormattedOutput::printUnsignedInteger(uintmax_t n, unsigned char base, bool 
 }
 
 int FormattedOutput::printSignedInteger(intmax_t n, unsigned char base, bool uppercase) {
-    // Check base (only up to 16 supported):
-    if (base > 16) return -1;
-
     if (n < 0) {
         printChar('-');
-        return printUnsignedInteger(-n, base, uppercase) + 1;
+        int res = printUnsignedInteger(-n, base, uppercase);
+        if (res < 0) return res;
+        return res + 1;
     } else {
         return printUnsignedInteger(n, base, uppercase);
     };
@@ -40,12 +39,17 @@ int FormattedOutput::printString(const char *s) {
 }
 
 int FormattedOutput::printFormatted(const char *format, ...) {
+    // argument list
     va_list arg;
     va_start(arg, format);
+    // result of sub-calls
     int res;
+    // currently in a format specifier?
     bool in_format = false;
+    // already written characters
     int count = 0;
 
+    // variables for arguments
     uintmax_t val_ui;
     intmax_t val_si;
     uintptr_t val_ptr;
@@ -55,10 +59,10 @@ int FormattedOutput::printFormatted(const char *format, ...) {
     // TODO: flags, width, precision, length
     while (char c = *format++) {
         if (c == '%' && !in_format) {
-            // percent character, format specifier starts (if not already started):
+            // percent character, format specifier starts (if not already started)
             in_format = true;
         } else if (in_format) {
-            // we're in a format specifier, check the character:
+            // we're in a format specifier, check the character
             switch (c) {
                 case 'd':
                 case 'i':
@@ -144,7 +148,7 @@ int FormattedOutput::printFormatted(const char *format, ...) {
                     in_format = false;
             }
         } else {
-            // simple character, print it:
+            // simple character, print it
             printChar(c);
             count++;
         }
