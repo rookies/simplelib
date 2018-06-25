@@ -5,25 +5,29 @@ set(CMAKE_CXX_STANDARD 11)
 
 include_directories(lib/include)
 
+set(
+        INCLUDE_FILES
+        lib/include/FormattedOutput.hh
+        lib/include/FormattedOutputBuffer.hh
+)
+
 add_library(
         simplelib
         STATIC
         lib/src/FormattedOutput.cc
-        lib/include/FormattedOutput.hh
         lib/src/FormattedOutputBuffer.cc
-        lib/include/FormattedOutputBuffer.hh
+        ${INCLUDE_FILES}
 )
 
 add_executable(
-        testsuite
-        test/main.cc
-        test/FormattedOutput.cc
-        lib/include/FormattedOutput.hh
-        test/FormattedOutputBuffer.cc
-        lib/include/FormattedOutputBuffer.hh
+        tests
+        tests/main.cc
+        tests/FormattedOutput.cc
+        tests/FormattedOutputBuffer.cc
+        ${INCLUDE_FILES}
 )
 target_link_libraries(
-        testsuite
+        tests
         simplelib
         UnitTest++
 )
