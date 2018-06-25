@@ -11,17 +11,20 @@ int FormattedOutput::printUnsignedInteger(uintmax_t n, unsigned char base, bool 
         count = printUnsignedInteger(n / base, base, uppercase);
     };
     if (uppercase) {
-        printChar(numberCharsUppercase[n % base]);
+        int res = printChar(numberCharsUppercase[n % base]);
+        if (res < 0) return res;
     } else {
-        printChar(numberCharsLowercase[n % base]);
+        int res = printChar(numberCharsLowercase[n % base]);
+        if (res < 0) return res;
     };
     return count + 1;
 }
 
 int FormattedOutput::printSignedInteger(intmax_t n, unsigned char base, bool uppercase) {
     if (n < 0) {
-        printChar('-');
-        int res = printUnsignedInteger(static_cast<uintmax_t>(-n), base, uppercase);
+        int res = printChar('-');
+        if (res < 0) return res;
+        res = printUnsignedInteger(static_cast<uintmax_t>(-n), base, uppercase);
         if (res < 0) return res;
         return res + 1;
     } else {
@@ -33,7 +36,8 @@ int FormattedOutput::printString(const char *s) {
     int count;
 
     for (count = 0; char c = *s++; ++count) {
-        printChar(c);
+        int res = printChar(c);
+        if (res < 0) return res;
     }
     return count;
 }
@@ -109,7 +113,8 @@ int FormattedOutput::printFormatted(const char *format, ...) {
                 case 'c':
                     // character
                     val_si = va_arg(arg, int);
-                    printChar(static_cast<char>(val_si));
+                    res = printChar(static_cast<char>(val_si));
+                    if (res < 0) return res;
                     count++;
                     in_format = false;
                     break;
@@ -140,7 +145,8 @@ int FormattedOutput::printFormatted(const char *format, ...) {
                     break;
                 case '%':
                     // literal percent character
-                    printChar('%');
+                    res = printChar('%');
+                    if (res < 0) return res;
                     count++;
                     in_format = false;
                     break;
@@ -149,7 +155,8 @@ int FormattedOutput::printFormatted(const char *format, ...) {
             }
         } else {
             // simple character, print it
-            printChar(c);
+            res = printChar(c);
+            if (res < 0) return res;
             count++;
         };
     }

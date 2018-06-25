@@ -14,8 +14,9 @@ public:
      * Prints a character.
      *
      * @param c the character to print
+     * @return zero on success or a negative number if an error occurs
      */
-    virtual void printChar(char c) = 0;
+    virtual int printChar(char c) = 0;
 
     /**
      * Prints an unsigned integer in a given base (default is 10).

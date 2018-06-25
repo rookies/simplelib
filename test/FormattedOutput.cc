@@ -3,11 +3,12 @@
 
 class TestFormattedOutput : public FormattedOutput {
 public:
-    void printChar(char c) override;
+    int printChar(char c) override;
 };
 
-void TestFormattedOutput::printChar(char c) {
+int TestFormattedOutput::printChar(char c) {
     std::cout << c;
+    return 0;
 }
 
 int main() {
