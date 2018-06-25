@@ -19,6 +19,8 @@ add_executable(
         test/main.cc
         test/FormattedOutput.cc
         lib/include/FormattedOutput.hh
+        test/FormattedOutputBuffer.cc
+        lib/include/FormattedOutputBuffer.hh
 )
 target_link_libraries(
         testsuite
