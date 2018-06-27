@@ -10,20 +10,24 @@ The tests use [UnitTest++](https://github.com/unittest-cpp/unittest-cpp).
 **Work in Progress.**
 
 ## Functionality
-This is a list of the currently implemented functionality.
-
 ### FormattedOutput
 An abstract class that provides methods for formatted data output.
 Implementing classes only have to define a *printChar()* method.
 
-Implemented methods:
+#### Implemented methods
  * print integers (signed/unsigned, in different bases 2..16, upper-/lowercase)
  * print strings (c-style)
  * print formatted (like printf, **incomplete**: no support for floats, flags, width, precision, length)
 
-Included implementing classes:
+#### Included implementing classes
  * **FormattedOutputBuffer** - writes into a buffer (just a *char*-array), with bounds-checking
 
-Planned improvements:
+#### Planned improvements
  * print floats
  * support for floats, flags, width, precision, length in *printFormatted()*
+
+### Planned functionality
+ * formatted input (like scanf/atoi/...)
+ * different data structures
+ * string manipulation functions (toLower/toUpper/split/...)
+ * PRNG
