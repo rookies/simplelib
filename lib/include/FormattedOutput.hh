@@ -25,7 +25,7 @@ public:
      * @param base the base to print the integer in
      * @return number of printed characters or a negative number if an error occurs
      */
-    int printUnsignedInteger(uintmax_t n, unsigned char base = 10, bool uppercase = false);
+    int printUnsignedInt(uintmax_t n, unsigned char base = 10, bool uppercase = false);
 
     /**
      * Prints a signed integer in a given base (default is 10).
@@ -34,7 +34,7 @@ public:
      * @param base the base to print the integer in
      * @return number of printed characters or a negative number if an error occurs
      */
-    int printSignedInteger(intmax_t n, unsigned char base = 10, bool uppercase = false);
+    int printSignedInt(intmax_t n, unsigned char base = 10, bool uppercase = false);
 
     /**
      * Prints a c-style string (null-terminated char array).

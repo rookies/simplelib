@@ -2,13 +2,13 @@
 
 #include <cstdarg>
 
-int FormattedOutput::printUnsignedInteger(uintmax_t n, unsigned char base, bool uppercase) {
-    // check base (only up to 16 supported)
-    if (base > 16) return -1;
+int FormattedOutput::printUnsignedInt(uintmax_t n, unsigned char base, bool uppercase) {
+    // check base (only 2..16 supported)
+    if (base < 2 || base > 16) return -1;
 
     int count = 0;
     if (n / base != 0) {
-        count = printUnsignedInteger(n / base, base, uppercase);
+        count = printUnsignedInt(n / base, base, uppercase);
     };
     if (uppercase) {
         int res = printChar(numberCharsUppercase[n % base]);
@@ -20,15 +20,15 @@ int FormattedOutput::printUnsignedInteger(uintmax_t n, unsigned char base, bool 
     return count + 1;
 }
 
-int FormattedOutput::printSignedInteger(intmax_t n, unsigned char base, bool uppercase) {
+int FormattedOutput::printSignedInt(intmax_t n, unsigned char base, bool uppercase) {
     if (n < 0) {
         int res = printChar('-');
         if (res < 0) return res;
-        res = printUnsignedInteger(static_cast<uintmax_t>(-n), base, uppercase);
+        res = printUnsignedInt(static_cast<uintmax_t>(-n), base, uppercase);
         if (res < 0) return res;
         return res + 1;
     } else {
-        return printUnsignedInteger(static_cast<uintmax_t>(n), base, uppercase);
+        return printUnsignedInt(static_cast<uintmax_t>(n), base, uppercase);
     };
 }
 
@@ -72,7 +72,7 @@ int FormattedOutput::printFormatted(const char *format, ...) {
                 case 'i':
                     // signed decimal integer
                     val_si = va_arg(arg, int);
-                    res = printSignedInteger(val_si);
+                    res = printSignedInt(val_si);
                     if (res < 0) return res;
                     count += res;
                     in_format = false;
@@ -80,7 +80,7 @@ int FormattedOutput::printFormatted(const char *format, ...) {
                 case 'u':
                     // unsigned decimal integer
                     val_ui = va_arg(arg, unsigned int);
-                    res = printUnsignedInteger(val_ui);
+                    res = printUnsignedInt(val_ui);
                     if (res < 0) return res;
                     count += res;
                     in_format = false;
@@ -88,7 +88,7 @@ int FormattedOutput::printFormatted(const char *format, ...) {
                 case 'o':
                     // unsigned octal
                     val_ui = va_arg(arg, unsigned int);
-                    res = printUnsignedInteger(val_ui, 8);
+                    res = printUnsignedInt(val_ui, 8);
                     if (res < 0) return res;
                     count += res;
                     in_format = false;
@@ -96,7 +96,7 @@ int FormattedOutput::printFormatted(const char *format, ...) {
                 case 'x':
                     // unsigned hexadecimal integer
                     val_ui = va_arg(arg, unsigned int);
-                    res = printUnsignedInteger(val_ui, 16, false);
+                    res = printUnsignedInt(val_ui, 16, false);
                     if (res < 0) return res;
                     count += res;
                     in_format = false;
@@ -104,7 +104,7 @@ int FormattedOutput::printFormatted(const char *format, ...) {
                 case 'X':
                     // unsigned hexadecimal integer (uppercase)
                     val_ui = va_arg(arg, unsigned int);
-                    res = printUnsignedInteger(val_ui, 16, true);
+                    res = printUnsignedInt(val_ui, 16, true);
                     if (res < 0) return res;
                     count += res;
                     in_format = false;
@@ -132,7 +132,7 @@ int FormattedOutput::printFormatted(const char *format, ...) {
                     res = printString("0x");
                     if (res < 0) return res;
                     count += res;
-                    res = printUnsignedInteger(val_ptr, 16, false);
+                    res = printUnsignedInt(val_ptr, 16, false);
                     if (res < 0) return res;
                     count += res;
                     in_format = false;

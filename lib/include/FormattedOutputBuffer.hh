@@ -8,6 +8,8 @@
  */
 class FormattedOutputBuffer : public FormattedOutput {
 public:
+    int printChar(char c) override;
+
     /**
      * Initializes the class with the given buffer.
      *
@@ -23,8 +25,6 @@ public:
      * @param len the length of the buffer
      */
     void setBuffer(char *buf, size_t len);
-
-    int printChar(char c) override;
 private:
     /**
      * The buffer used to output.

@@ -3,7 +3,12 @@ project(simplelib)
 
 set(CMAKE_CXX_STANDARD 11)
 
-include_directories(lib/include)
+find_package(UnitTest++ REQUIRED)
+
+include_directories(
+        lib/include
+        ${UTPP_INCLUDE_DIRS}
+)
 
 set(
         INCLUDE_FILES

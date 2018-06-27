@@ -14,25 +14,45 @@ public:
 SUITE (FormattedOutput) {
     TEST (unsignedDecimalInteger) {
         FormattedOutputTest fo;
-        CHECK_EQUAL(9, fo.printUnsignedInteger(123456789));
+        CHECK_EQUAL(9, fo.printUnsignedInt(123456789));
         CHECK_EQUAL("123456789", fo.ss.str());
     }
     TEST (unsignedHexadecimalInteger) {
         FormattedOutputTest fo;
-        CHECK_EQUAL(8, fo.printUnsignedInteger(0xdeadbeef, 16));
+        CHECK_EQUAL(8, fo.printUnsignedInt(0xdeadbeef, 16));
         CHECK_EQUAL("deadbeef", fo.ss.str());
         fo.ss.str("");
-        CHECK_EQUAL(8, fo.printUnsignedInteger(0xdeadbeef, 16, true));
+        CHECK_EQUAL(8, fo.printUnsignedInt(0xdeadbeef, 16, true));
         CHECK_EQUAL("DEADBEEF", fo.ss.str());
+    }
+    TEST (unsignedBinaryInteger) {
+        FormattedOutputTest fo;
+        CHECK_EQUAL(4, fo.printUnsignedInt(0b1011, 2));
+        CHECK_EQUAL("1011", fo.ss.str());
     }
     TEST (unsignedInvalidBase) {
         FormattedOutputTest fo;
-        CHECK_EQUAL(-1, fo.printUnsignedInteger(123, 20));
+        CHECK_EQUAL(-1, fo.printUnsignedInt(123, 17));
+        CHECK_EQUAL(-1, fo.printUnsignedInt(123, 0));
+        CHECK_EQUAL(-1, fo.printUnsignedInt(123, 1));
     }
     TEST (signedDecimalInteger) {
         FormattedOutputTest fo;
-        CHECK_EQUAL(3, fo.printSignedInteger(-42));
+        CHECK_EQUAL(3, fo.printSignedInt(-42));
         CHECK_EQUAL("-42", fo.ss.str());
+    }
+    TEST (signedHexadecimalInteger) {
+        FormattedOutputTest fo;
+        CHECK_EQUAL(5, fo.printSignedInt(-0xdead, 16));
+        CHECK_EQUAL("-dead", fo.ss.str());
+        fo.ss.str("");
+        CHECK_EQUAL(5, fo.printSignedInt(-0xdead, 16, true));
+        CHECK_EQUAL("-DEAD", fo.ss.str());
+    }
+    TEST (signedBinaryInteger) {
+        FormattedOutputTest fo;
+        CHECK_EQUAL(5, fo.printSignedInt(-0b1011, 2));
+        CHECK_EQUAL("-1011", fo.ss.str());
     }
     TEST (string) {
         FormattedOutputTest fo;
