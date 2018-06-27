@@ -14,6 +14,7 @@ set(
         INCLUDE_FILES
         lib/include/FormattedOutput.hh
         lib/include/FormattedOutputBuffer.hh
+        lib/include/Random.hh
 )
 
 add_library(
@@ -21,6 +22,7 @@ add_library(
         STATIC
         lib/src/FormattedOutput.cc
         lib/src/FormattedOutputBuffer.cc
+        lib/src/Random.cc
         ${INCLUDE_FILES}
 )
 
@@ -29,6 +31,7 @@ add_executable(
         tests/main.cc
         tests/FormattedOutput.cc
         tests/FormattedOutputBuffer.cc
+        tests/Random.cc
         ${INCLUDE_FILES}
 )
 target_link_libraries(
